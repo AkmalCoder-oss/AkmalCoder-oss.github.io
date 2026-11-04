@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ms" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Demografi Penduduk Malaysia (1970 - 2026)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.7); }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .card-print { border: 1px solid #ccc !important; shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Title -->
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-chart-pie text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">MYDemographics</h1>
+                            <span class="px-2 py-0.5 text-[10px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300 rounded-full uppercase tracking-wider">Laporan Rasmi</span>
+                        </div>
+                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Analisis Penduduk & Demografi Malaysia (1970 – 2026)</p>
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center gap-3 no-print">
+                    <!-- Export CSV Button -->
+                    <button onclick="exportCSV()" class="px-3.5 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl transition flex items-center gap-2 border border-slate-200 dark:border-slate-700">
+                        <i class="fa-solid fa-file-csv text-emerald-600 text-base"></i>
+                        <span class="hidden sm:inline">Eksport CSV</span>
+                    </button>
+                    <!-- Print Report Button -->
+                    <button onclick="window.print()" class="px-3.5 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl transition flex items-center gap-2 border border-slate-200 dark:border-slate-700">
+                        <i class="fa-solid fa-print text-blue-600 text-base"></i>
+                        <span class="hidden sm:inline">Cetak</span>
+                    </button>
+                    <!-- Dark/Light Theme Toggle -->
+                    <button id="themeBtn" title="Tukar Tema" class="p-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition border border-slate-200 dark:border-slate-700">
+                        <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Top Controls / Filter Bar -->
+        <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-slate-900 rounded-3xl p-6 shadow-xl text-white flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+            <!-- Subtle background pattern -->
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+                <i class="fa-solid fa-users text-[220px]"></i>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide text-blue-200 mb-2 border border-white/10">
+                    <i class="fa-solid fa-sliders text-amber-300"></i> Panel Kawalan Data
+                </div>
+                <h2 class="text-2xl font-bold tracking-tight">Analisis Demografi Mengikut Tahun</h2>
+                <p class="text-xs sm:text-sm text-blue-100/80 mt-1 max-w-xl">Pilih tahun untuk memaparkan perubahan data populasi, statistik jantina, etnik, dan taburan umur.</p>
+            </div>
+
+            <div class="relative z-10 flex items-center gap-3 bg-white/10 dark:bg-slate-900/40 p-2.5 rounded-2xl border border-white/15 backdrop-blur-md">
+                <label for="yearSelector" class="text-xs sm:text-sm font-semibold text-blue-100 pl-2 whitespace-nowrap">
+                    <i class="fa-solid fa-calendar-days text-amber-400 mr-1"></i> Pilih Tahun:
+                </label>
+                <select id="yearSelector" onchange="onYearChange(this.value)" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm font-bold rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-400 outline-none cursor-pointer shadow-md transition">
+                    <!-- Populated via JS -->
+                </select>
+            </div>
+        </div>
+
+        <!-- KPI Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- KPI 1: Jumlah Populasi -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 relative group hover:shadow-md transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Jumlah Penduduk</span>
+                        <h3 id="kpiTotal" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">--</h3>
+                        <p id="kpiYearSub" class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">Tahun 2026</p>
+                    </div>
+                    <div class="w-14 h-14 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-trend-up"></i> +216.0%
+                    </span>
+                    <span class="text-slate-400">berbanding 1970</span>
+                </div>
+            </div>
+
+            <!-- KPI 2: Lelaki -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 relative group hover:shadow-md transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Penduduk Lelaki</span>
+                        <h3 id="kpiMale" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">--</h3>
+                        <p id="kpiMalePct" class="text-xs font-bold text-sky-600 dark:text-sky-400 mt-1">52.4% Populasi</p>
+                    </div>
+                    <div class="w-14 h-14 bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-mars"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div id="barMale" class="bg-sky-500 h-full rounded-full transition-all duration-500" style="width: 52.4%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 3: Perempuan -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 relative group hover:shadow-md transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Penduduk Perempuan</span>
+                        <h3 id="kpiFemale" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">--</h3>
+                        <p id="kpiFemalePct" class="text-xs font-bold text-pink-600 dark:text-pink-400 mt-1">47.6% Populasi</p>
+                    </div>
+                    <div class="w-14 h-14 bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-venus"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div id="barFemale" class="bg-pink-500 h-full rounded-full transition-all duration-500" style="width: 47.6%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI 4: Bukan Warganegara -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 relative group hover:shadow-md transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Bukan Warganegara</span>
+                        <h3 id="kpiNonCitizen" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">--</h3>
+                        <p id="kpiNonCitizenPct" class="text-xs font-bold text-amber-600 dark:text-amber-400 mt-1">9.8% Populasi</p>
+                    </div>
+                    <div class="w-14 h-14 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-passport"></i>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div id="barNonCitizen" class="bg-amber-500 h-full rounded-full transition-all duration-500" style="width: 9.8%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualizations Grid 1 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Main Trend Line Chart -->
+            <div class="lg:col-span-8 glass-card rounded-3xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between card-print">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-blue-600"></i>
+                            Trend Pertumbuhan Jumlah Penduduk (1970 – 2026)
+                        </h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Jumlah populasi Malaysia dalam unit Juta Orang</p>
+                    </div>
+                    <span class="px-3 py-1 text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700">56 Tahun Rekod</span>
+                </div>
+                <div class="h-80 w-full relative">
+                    <canvas id="chartLineGrowth"></canvas>
+                </div>
+            </div>
+
+            <!-- Ethnic Composition Doughnut Chart -->
+            <div class="lg:col-span-4 glass-card rounded-3xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between card-print">
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-indigo-600"></i>
+                        Komposisi Etnik (2026)
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Pecahan etnik & warganegara terkini</p>
+                </div>
+                <div class="h-72 w-full relative flex items-center justify-center">
+                    <canvas id="chartEthnicDoughnut"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualizations Grid 2 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Age & Gender Pyramid Chart -->
+            <div class="lg:col-span-6 glass-card rounded-3xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 card-print">
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-people-group text-sky-600"></i>
+                        Piramid Penduduk: Umur & Jantina (2026)
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Struktur umur Lelaki (Kiri) vs Perempuan (Kanan) dalam ribu orang</p>
+                </div>
+                <div class="h-96 w-full relative">
+                    <canvas id="chartPyramid"></canvas>
+                </div>
+            </div>
+
+            <!-- Ethnic Comparison Multi-Line Chart -->
+            <div class="lg:col-span-6 glass-card rounded-3xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 card-print">
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-area text-purple-600"></i>
+                        Trend Pertumbuhan Etnik Utama (1995 – 2026)
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Perbandingan pergerakan populasi mengikut kumpulan etnik</p>
+                </div>
+                <div class="h-96 w-full relative">
+                    <canvas id="chartEthnicMultiTrend"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Searchable & Paginated Data Table -->
+        <div class="glass-card rounded-3xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 card-print">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-table-list text-emerald-600"></i>
+                        Jadual Ringkasan Rekod Penduduk
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Maklumat lengkap sejarah populasi dari 1970 hingga 2026</p>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative no-print">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari tahun atau etnik..." class="w-full sm:w-64 pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-semibold rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition">
+                </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-700">
+                <table class="w-full text-xs sm:text-sm text-left text-slate-600 dark:text-slate-300">
+                    <thead class="text-xs text-slate-700 dark:text-slate-200 uppercase bg-slate-100/90 dark:bg-slate-800/90 font-bold">
+                        <tr>
+                            <th scope="col" class="px-5 py-3.5">Tahun</th>
+                            <th scope="col" class="px-5 py-3.5">Jumlah Populasi</th>
+                            <th scope="col" class="px-5 py-3.5">Bumiputera Melayu</th>
+                            <th scope="col" class="px-5 py-3.5">Cina</th>
+                            <th scope="col" class="px-5 py-3.5">India</th>
+                            <th scope="col" class="px-5 py-3.5">Bukan Warganegara</th>
+                            <th scope="col" class="px-5 py-3.5 text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="divide-y divide-slate-100 dark:divide-slate-800 font-medium">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex items-center justify-between mt-4 text-xs text-slate-500 dark:text-slate-400 no-print">
+                <span id="pageInfo">Memaparkan rekod 1 hingga 10</span>
+                <div class="flex items-center gap-2">
+                    <button id="prevBtn" onclick="changePage(-1)" class="px-3 py-1.5 font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition disabled:opacity-50">
+                        <i class="fa-solid fa-chevron-left mr-1"></i> Sebelum
+                    </button>
+                    <button id="nextBtn" onclick="changePage(1)" class="px-3 py-1.5 font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition disabled:opacity-50">
+                        Seterusnya <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-16 py-8 text-center text-xs text-slate-500 dark:text-slate-400 no-print">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Dashboard Demografi Penduduk Malaysia (1970 - 2026)</p>
+            <p>Berdasarkan set data rasmi <strong>population_malaysia.csv</strong> — Jabatan Perangkaan Malaysia (DOSM).</p>
+            <p class="text-[11px] text-slate-400">Direkabentuk untuk paparan eksekutif & analisis statistik.</p>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // --- MASTER DATASET FROM CSV ---
+        const populationData = [
+            { year: 1970, total: 10881.8, male: 5521.1, female: 5360.7, nonCitizen: 280.0, bumiMalay: 5380.0, chinese: 3560.0, indian: 930.0 },
+            { year: 1975, total: 12300.3, male: 6241.0, female: 6059.3, nonCitizen: 320.0, bumiMalay: 6150.0, chinese: 3950.0, indian: 1020.0 },
+            { year: 1980, total: 13879.3, male: 7041.5, female: 6837.8, nonCitizen: 410.0, bumiMalay: 7010.0, chinese: 4420.0, indian: 1140.0 },
+            { year: 1985, total: 15882.7, male: 8060.0, female: 7822.7, nonCitizen: 580.0, bumiMalay: 8100.0, chinese: 4800.0, indian: 1250.0 },
+            { year: 1990, total: 18102.4, male: 9190.2, female: 8912.2, nonCitizen: 750.0, bumiMalay: 9300.0, chinese: 5120.0, indian: 1380.0 },
+            { year: 1995, total: 20681.8, male: 10520.0, female: 10161.8, nonCitizen: 1100.0, bumiMalay: 10720.0, chinese: 5450.0, indian: 1510.0 },
+            { year: 2000, total: 23494.9, male: 11980.5, female: 11514.4, nonCitizen: 1450.0, bumiMalay: 12250.0, chinese: 5800.0, indian: 1650.0 },
+            { year: 2005, total: 26045.5, male: 13320.0, female: 12725.5, nonCitizen: 1880.0, bumiMalay: 13600.0, chinese: 6180.0, indian: 1780.0 },
+            { year: 2010, total: 28588.6, male: 14690.0, female: 13898.6, nonCitizen: 2320.0, bumiMalay: 14850.0, chinese: 6480.0, indian: 1890.0 },
+            { year: 2015, total: 31186.1, male: 16180.0, female: 15006.1, nonCitizen: 3120.0, bumiMalay: 16100.0, chinese: 6680.0, indian: 1980.0 },
+            { year: 2020, total: 32447.4, male: 16890.0, female: 15557.4, nonCitizen: 2680.0, bumiMalay: 17280.0, chinese: 6890.0, indian: 2000.0 },
+            { year: 2024, total: 34060.0, male: 17850.0, female: 16210.0, nonCitizen: 3350.0, bumiMalay: 17950.0, chinese: 6850.0, indian: 2005.0 },
+            { year: 2025, total: 34220.5, male: 17930.0, female: 16290.5, nonCitizen: 3360.0, bumiMalay: 18040.0, chinese: 6840.0, indian: 2006.0 },
+            { year: 2026, total: 34389.4, male: 18025.2, female: 16364.2, nonCitizen: 3373.6, bumiMalay: 18126.1, chinese: 6829.2, indian: 2006.5 }
+        ];
+
+        // Detailed 2026 Ethnic Breakdown
+        const ethnic2026Data = [
+            { label: 'Bumiputera Melayu', value: 18126.1, pct: 52.7, color: '#10b981' },
+            { label: 'Cina', value: 6829.2, pct: 19.9, color: '#f59e0b' },
+            { label: 'Bumiputera Lain', value: 3816.9, pct: 11.1, color: '#06b6d4' },
+            { label: 'Bukan Warganegara', value: 3373.6, pct: 9.8, color: '#8b5cf6' },
+            { label: 'India', value: 2006.5, pct: 5.8, color: '#ec4899' },
+            { label: 'Lain-lain Warganegara', value: 237.1, pct: 0.7, color: '#64748b' }
+        ];
+
+        // Pyramid Age Data 2026 (in Thousands)
+        const pyramidAgeLabels = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80-84', '85+'];
+        const pyramidMaleData = [1110, 1260, 1360, 1410, 1700, 1750, 1580, 1490, 1410, 1140, 910, 760, 670, 550, 390, 240, 110, 80];
+        const pyramidFemaleData = [1040, 1210, 1270, 1280, 1400, 1370, 1280, 1320, 1290, 1040, 880, 760, 680, 580, 420, 270, 130, 70];
+
+        // Multi-line Ethnic Trend (1995 - 2026)
+        const ethnicYears = [1995, 2000, 2005, 2010, 2015, 2020, 2024, 2026];
+        const ethnicMultiTrend = {
+            melayu: [10.72, 12.25, 13.60, 14.85, 16.10, 17.28, 17.95, 18.13],
+            cina: [5.45, 5.80, 6.18, 6.48, 6.68, 6.89, 6.85, 6.83],
+            bukanWarga: [1.10, 1.45, 1.88, 2.32, 3.12, 2.68, 3.35, 3.37],
+            india: [1.51, 1.65, 1.78, 1.89, 1.98, 2.00, 2.01, 2.01]
+        };
+
+        // Global Chart Handles
+        let chartLineGrowthObj, chartEthnicDoughnutObj, chartPyramidObj, chartEthnicMultiTrendObj;
+
+        // Pagination State
+        let currentPage = 1;
+        const rowsPerPage = 7;
+        let filteredData = [...populationData].reverse();
+
+        // Initialize Dashboard
+        window.addEventListener('DOMContentLoaded', () => {
+            setupThemeToggle();
+            populateYearDropdown();
+            renderTable();
+            initCharts();
+            onYearChange('2026');
+        });
+
+        // Theme Switcher Setup
+        function setupThemeToggle() {
+            const themeBtn = document.getElementById('themeBtn');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            themeBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                themeIcon.className = isDark ? 'fa-solid fa-sun text-lg text-amber-400' : 'fa-solid fa-moon text-lg';
+                updateChartsTheme(isDark);
+            });
+        }
+
+        function updateChartsTheme(isDark) {
+            const textColor = isDark ? '#cbd5e1' : '#475569';
+            const gridColor = isDark ? '#334155' : '#e2e8f0';
+
+            [chartLineGrowthObj, chartEthnicDoughnutObj, chartPyramidObj, chartEthnicMultiTrendObj].forEach(chart => {
+                if (!chart) return;
+                if (chart.options.scales) {
+                    Object.values(chart.options.scales).forEach(scale => {
+                        if (scale.ticks) scale.ticks.color = textColor;
+                        if (scale.grid) scale.grid.color = gridColor;
+                    });
+                }
+                if (chart.options.plugins && chart.options.plugins.legend) {
+                    chart.options.plugins.legend.labels.color = textColor;
+                }
+                chart.update();
+            });
+        }
+
+        // Year Selector Dropdown
+        function populateYearDropdown() {
+            const select = document.getElementById('yearSelector');
+            populationData.slice().reverse().forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.year;
+                opt.textContent = `Tahun ${item.year}`;
+                select.appendChild(opt);
+            });
+        }
+
+        // Update KPI Cards Dynamic Values
+        function onYearChange(selectedYear) {
+            const data = populationData.find(d => d.year == selectedYear) || populationData[populationData.length - 1];
+
+            const totalM = (data.total / 1000).toFixed(2) + ' Juta';
+            const maleM = (data.male / 1000).toFixed(2) + ' Juta';
+            const femaleM = (data.female / 1000).toFixed(2) + ' Juta';
+            const nonCitizenM = (data.nonCitizen / 1000).toFixed(2) + ' Juta';
+
+            const malePct = ((data.male / data.total) * 100).toFixed(1);
+            const femalePct = ((data.female / data.total) * 100).toFixed(1);
+            const nonCitizenPct = ((data.nonCitizen / data.total) * 100).toFixed(1);
+
+            document.getElementById('kpiTotal').textContent = totalM;
+            document.getElementById('kpiYearSub').textContent = `Tahun ${data.year}`;
+
+            document.getElementById('kpiMale').textContent = maleM;
+            document.getElementById('kpiMalePct').textContent = `${malePct}% Populasi`;
+            document.getElementById('barMale').style.width = `${malePct}%`;
+
+            document.getElementById('kpiFemale').textContent = femaleM;
+            document.getElementById('kpiFemalePct').textContent = `${femalePct}% Populasi`;
+            document.getElementById('barFemale').style.width = `${femalePct}%`;
+
+            document.getElementById('kpiNonCitizen').textContent = nonCitizenM;
+            document.getElementById('kpiNonCitizenPct').textContent = `${nonCitizenPct}% Populasi`;
+            document.getElementById('barNonCitizen').style.width = `${nonCitizenPct}%`;
+        }
+
+        // Initialize All Charts
+        function initCharts() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#cbd5e1' : '#475569';
+            const gridColor = isDark ? '#334155' : '#e2e8f0';
+
+            // 1. Line Chart - Population Growth Trend
+            const ctxGrowth = document.getElementById('chartLineGrowth').getContext('2d');
+            const gradientBg = ctxGrowth.createLinearGradient(0, 0, 0, 300);
+            gradientBg.addColorStop(0, 'rgba(37, 99, 235, 0.35)');
+            gradientBg.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
+
+            chartLineGrowthObj = new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: populationData.map(d => d.year),
+                    datasets: [{
+                        label: 'Jumlah Penduduk (Juta)',
+                        data: populationData.map(d => (d.total / 1000).toFixed(2)),
+                        borderColor: '#2563eb',
+                        backgroundColor: gradientBg,
+                        borderWidth: 3.5,
+                        fill: true,
+                        tension: 0.35,
+                        pointBackgroundColor: '#1d4ed8',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            titleFont: { size: 13, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            padding: 10,
+                            callbacks: {
+                                label: (ctx) => ` Populasi: ${ctx.raw} Juta Orang`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { ticks: { color: textColor }, grid: { color: gridColor } },
+                        y: { 
+                            ticks: { color: textColor, callback: v => v + 'M' }, 
+                            grid: { color: gridColor },
+                            title: { display: true, text: 'Jumlah (Juta Orang)', color: textColor }
+                        }
+                    }
+                }
+            });
+
+            // 2. Doughnut Chart - Ethnic Breakdown (2026)
+            const ctxEthnic = document.getElementById('chartEthnicDoughnut').getContext('2d');
+            chartEthnicDoughnutObj = new Chart(ctxEthnic, {
+                type: 'doughnut',
+                data: {
+                    labels: ethnic2026Data.map(e => e.label),
+                    datasets: [{
+                        data: ethnic2026Data.map(e => e.value),
+                        backgroundColor: ethnic2026Data.map(e => e.color),
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: textColor, font: { size: 11, weight: '500' }, boxWidth: 12, padding: 12 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            callbacks: {
+                                label: (ctx) => ` ${ctx.label}: ${(ctx.raw / 1000).toFixed(2)}M (${ethnic2026Data[ctx.dataIndex].pct}%)`
+                            }
+                        }
+                    },
+                    cutout: '68%'
+                }
+            });
+
+            // 3. Horizontal Bar Chart - Age & Gender Pyramid (2026)
+            const ctxPyramid = document.getElementById('chartPyramid').getContext('2d');
+            chartPyramidObj = new Chart(ctxPyramid, {
+                type: 'bar',
+                data: {
+                    labels: pyramidAgeLabels,
+                    datasets: [
+                        {
+                            label: 'Lelaki',
+                            data: pyramidMaleData.map(v => -v),
+                            backgroundColor: '#0284c7',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Perempuan',
+                            data: pyramidFemaleData,
+                            backgroundColor: '#ec4899',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { color: textColor, font: { weight: 'bold' } } },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            callbacks: {
+                                label: (ctx) => ` ${ctx.dataset.label}: ${Math.abs(ctx.raw).toLocaleString()} ribu`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: textColor,
+                                callback: (v) => `${Math.abs(v)}k`
+                            },
+                            grid: { color: gridColor },
+                            title: { display: true, text: 'Jumlah Penduduk (Ribu)', color: textColor }
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: { color: textColor, font: { size: 11 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // 4. Multi-Line Chart - Ethnic Trends (1995 - 2026)
+            const ctxEthnicMulti = document.getElementById('chartEthnicMultiTrend').getContext('2d');
+            chartEthnicMultiTrendObj = new Chart(ctxEthnicMulti, {
+                type: 'line',
+                data: {
+                    labels: ethnicYears,
+                    datasets: [
+                        {
+                            label: 'Bumiputera Melayu',
+                            data: ethnicMultiTrend.melayu,
+                            borderColor: '#10b981',
+                            backgroundColor: '#10b981',
+                            borderWidth: 3,
+                            tension: 0.25,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Cina',
+                            data: ethnicMultiTrend.cina,
+                            borderColor: '#f59e0b',
+                            backgroundColor: '#f59e0b',
+                            borderWidth: 3,
+                            tension: 0.25,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Bukan Warganegara',
+                            data: ethnicMultiTrend.bukanWarga,
+                            borderColor: '#8b5cf6',
+                            backgroundColor: '#8b5cf6',
+                            borderWidth: 3,
+                            tension: 0.25,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'India',
+                            data: ethnicMultiTrend.india,
+                            borderColor: '#ec4899',
+                            backgroundColor: '#ec4899',
+                            borderWidth: 3,
+                            tension: 0.25,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { color: textColor, boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            callbacks: {
+                                label: (ctx) => ` ${ctx.dataset.label}: ${ctx.raw} Juta`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { ticks: { color: textColor }, grid: { color: gridColor } },
+                        y: { 
+                            ticks: { color: textColor, callback: v => v + 'M' }, 
+                            grid: { color: gridColor },
+                            title: { display: true, text: 'Jumlah (Juta Orang)', color: textColor }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Table Render & Pagination
+        function renderTable() {
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = '';
+
+            const startIdx = (currentPage - 1) * rowsPerPage;
+            const endIdx = startIdx + rowsPerPage;
+            const paginatedRows = filteredData.slice(startIdx, endIdx);
+
+            if (paginatedRows.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="px-5 py-6 text-center text-slate-400">Tiada rekod data dijumpai.</td></tr>`;
+                document.getElementById('pageInfo').textContent = 'Memaparkan 0 rekod';
+                document.getElementById('prevBtn').disabled = true;
+                document.getElementById('nextBtn').disabled = true;
+                return;
+            }
+
+            paginatedRows.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition";
+                
+                tr.innerHTML = `
+                    <td class="px-5 py-3.5 font-bold text-slate-900 dark:text-white">${row.year}</td>
+                    <td class="px-5 py-3.5 font-semibold text-blue-600 dark:text-blue-400">${(row.total / 1000).toFixed(2)}M <span class="text-xs text-slate-400 font-normal">(${row.total.toLocaleString()}k)</span></td>
+                    <td class="px-5 py-3.5">${(row.bumiMalay / 1000).toFixed(2)}M</td>
+                    <td class="px-5 py-3.5">${(row.chinese / 1000).toFixed(2)}M</td>
+                    <td class="px-5 py-3.5">${(row.indian / 1000).toFixed(2)}M</td>
+                    <td class="px-5 py-3.5">${(row.nonCitizen / 1000).toFixed(2)}M</td>
+                    <td class="px-5 py-3.5 text-center">
+                        <span class="px-2.5 py-1 text-[11px] rounded-full font-bold ${row.year === 2026 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}">
+                            ${row.year === 2026 ? 'Unjuran 2026' : 'Rekod Sejarah'}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Update Pagination Controls
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            document.getElementById('pageInfo').textContent = `Memaparkan rekod ${startIdx + 1} hingga ${Math.min(endIdx, filteredData.length)} daripada ${filteredData.length}`;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            renderTable();
+        }
+
+        function filterTable() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            filteredData = populationData.slice().reverse().filter(item => {
+                return item.year.toString().includes(query) || 
+                       item.total.toString().includes(query) ||
+                       (item.year === 2026 && "unjuran 2026".includes(query));
+            });
+            currentPage = 1;
+            renderTable();
+        }
+
+        // Export Function
+        function exportCSV() {
+            let csv = "Tahun,Jumlah_Ribu,Lelaki_Ribu,Perempuan_Ribu,Bukan_Warganegara_Ribu,Bumiputera_Melayu_Ribu,Cina_Ribu,India_Ribu\n";
+            populationData.forEach(r => {
+                csv += `${r.year},${r.total},${r.male},${r.female},${r.nonCitizen},${r.bumiMalay},${r.chinese},${r.indian}\n`;
+            });
+
+            const link = document.createElement("a");
+            link.href = "data:text/csv;charset=utf-8," + encodeURI(csv);
+            link.download = "demografi_populasi_malaysia_1970_2026.csv";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
