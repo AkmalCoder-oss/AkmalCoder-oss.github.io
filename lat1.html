@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jom Terokai Sabah - Destinasi Pelancongan Menarik di Negeri Di Bawah Bayu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter & Montserrat) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        sabah: {
+                            green: '#059669',
+                            gold: '#d97706',
+                            coral: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(12, 74, 110, 0.45) 0%, rgba(15, 23, 42, 0.85) 100%);
+        }
+        .card-shadow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-shadow:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans flex flex-col min-h-screen">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-teal-400 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid me-0.5 fa-mountain-sun"></i>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-xl text-slate-900 tracking-tight block leading-none">SABAH<span class="text-brand-600">TRAVEL</span></span>
+                        <span class="text-[10px] text-slate-500 font-semibold tracking-wider uppercase">Negeri Di Bawah Bayu</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#utamanya" class="text-slate-700 hover:text-brand-600 font-medium transition-colors">Utama</a>
+                    <a href="#destinasi" class="text-slate-700 hover:text-brand-600 font-medium transition-colors">Destinasi Populat</a>
+                    <a href="#tentang" class="text-slate-700 hover:text-brand-600 font-medium transition-colors">Tentang Sabah</a>
+                    <a href="#hubungi" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300">Hubungi Kami</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-600 hover:text-slate-900 p-2 focus:outline-none" aria-label="Buka Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-3">
+            <a href="#utamanya" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Utama</a>
+            <a href="#destinasi" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Destinasi Popular</a>
+            <a href="#tentang" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Tentang Sabah</a>
+            <a href="#hubungi" class="block py-2.5 text-center bg-brand-600 text-white rounded-lg font-medium">Hubungi Kami</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="utamanya" class="relative min-h-[550px] lg:min-h-[620px] flex items-center justify-center bg-slate-900 text-white overflow-hidden">
+            <!-- Background Image -->
+            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1600&auto=format&fit=crop" 
+                 alt="Gunung Kinabalu Sabah" 
+                 class="absolute inset-0 w-full h-full object-cover object-center"
+                 onerror="this.src='https://placehold.co/1600x900/0f172a/ffffff?text=Sabah+Tourism'" />
+            
+            <div class="absolute inset-0 hero-gradient"></div>
+
+            <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center py-16">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-white/20 backdrop-blur-md text-teal-200 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 border border-white/30">
+                    <i class="fa-solid fa-compass mr-1.5"></i> Terokai Keindahan Alam & Budaya
+                </span>
+                <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-6 drop-shadow-md">
+                    Destinasi Pelancongan Menarik di <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-sky-400">Sabah</span>
+                </h1>
+                <p class="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto mb-8 font-normal leading-relaxed">
+                    Daripada puncak tertinggi Gunung Kinabalu hingga syurga menyelam Pulau Sipadan. Alami keunikan warisan flora, fauna, dan budaya unik "Negeri Di Bawah Bayu".
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#destinasi" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-brand-600/30 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Lihat Tempat Menarik <i class="fa-solid fa-arrow-down ml-2"></i>
+                    </a>
+                    <a href="#hubungi" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/40 text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-300">
+                        Rancang Perjalanan
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Showcase & Filter Section -->
+        <section id="destinasi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="font-heading text-2xl sm:text-4xl font-bold text-slate-900 mb-3">Pilih Destinasi Impian Anda</h2>
+                <p class="text-slate-600 text-base sm:text-lg">Cari mengikut nama tempat atau tapis mengikut kategori tarikan kegemaran anda.</p>
+            </div>
+
+            <!-- Search Bar & Category Filter Controls -->
+            <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-200 mb-10 space-y-6">
+                <!-- Search Input -->
+                <div class="relative max-w-xl mx-auto">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                    <input type="text" id="search-input" placeholder="Cari nama lokasi (cth: Kundasang, Sipadan, Sepilok)..." 
+                           class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-slate-800 placeholder-slate-400 text-sm sm:text-base">
+                </div>
+
+                <!-- Category Buttons -->
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-3" id="category-filters">
+                    <button data-category="semua" class="filter-btn active bg-brand-600 text-white px-5 py-2 rounded-xl text-sm font-medium transition-all shadow-sm">
+                        <i class="fa-solid fa-border-all mr-1.5"></i> Semua
+                    </button>
+                    <button data-category="gunung" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                        <i class="fa-solid fa-mountain mr-1.5 text-emerald-600"></i> Gunung
+                    </button>
+                    <button data-category="pulau" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                        <i class="fa-solid fa-water mr-1.5 text-sky-600"></i> Pulau & Pantai
+                    </button>
+                    <button data-category="kebudayaan" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                        <i class="fa-solid fa-masks-theater mr-1.5 text-amber-600"></i> Kebudayaan
+                    </button>
+                    <button data-category="alam" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                        <i class="fa-solid fa-tree mr-1.5 text-green-600"></i> Alam Semulajadi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Destinations Grid -->
+            <div id="destinations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamic cards populated via JavaScript -->
+            </div>
+
+            <!-- Empty State Message -->
+            <div id="no-results" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 mt-6">
+                <i class="fa-solid fa-map-location-dot text-5xl text-slate-300 mb-4"></i>
+                <h3 class="text-xl font-bold text-slate-700 mb-1">Tiada Destinasi Ditemui</h3>
+                <p class="text-slate-500">Cuba cari dengan kata kunci lain atau pilih kategori yang berbeza.</p>
+            </div>
+        </section>
+
+        <!-- About Sabah Highlight Section -->
+        <section id="tentang" class="bg-gradient-to-b from-sky-900 to-slate-900 text-white py-16 sm:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-teal-400 font-semibold tracking-wider uppercase text-sm">Keunikan Sabah</span>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-bold mt-2 mb-6 leading-tight">Mengapa Sabah Destinasi Pelancongan Pilihan Utama?</h2>
+                        <p class="text-slate-300 text-base leading-relaxed mb-6">
+                            Sabah menawarkan kepelbagaian biodiversiti antara yang terkaya di dunia, daripada hidupan marin bertaraf antarabangsa hingga habitat hutan hujan purba. Selain itu, gabungan harmoni lebih daripada 30 kumpulan etnik menjadikan kebudayaan di Sabah sangat unik dan mesra pengunjung.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
+                                <span class="block text-3xl font-extrabold text-teal-300 font-heading">4,095m</span>
+                                <span class="text-xs sm:text-sm text-slate-300">Puncak Gunung Kinabalu</span>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
+                                <span class="block text-3xl font-extrabold text-sky-300 font-heading">30+</span>
+                                <span class="text-xs sm:text-sm text-slate-300">Etnik & Suku Kaum</span>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
+                                <span class="block text-3xl font-extrabold text-amber-300 font-heading">Top 5</span>
+                                <span class="text-xs sm:text-sm text-slate-300">Lokasi Menyelam Dunia</span>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
+                                <span class="block text-3xl font-extrabold text-emerald-300 font-heading">Tapak</span>
+                                <span class="text-xs sm:text-sm text-slate-300">Warisan Dunia UNESCO</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Pemandangan Laut Sabah" 
+                             class="rounded-2xl shadow-2xl w-full object-cover h-[400px] border-4 border-white/10"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Keindahan+Sabah'" />
+                        <div class="absolute -bottom-6 -left-6 bg-brand-600 text-white p-6 rounded-2xl shadow-lg hidden sm:block max-w-xs">
+                            <i class="fa-solid fa-quote-left text-2xl text-brand-300 mb-2"></i>
+                            <p class="text-xs italic">"Pengalaman terbaik menyaksikan keindahan alam dan keramahan penduduk tempatan."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Inquiry Form Section -->
+        <section id="hubungi" class="py-16 bg-slate-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+                    <div class="p-6 sm:p-10">
+                        <div class="text-center mb-8">
+                            <span class="text-brand-600 font-semibold text-xs uppercase tracking-wider">Pertanyaan & Cadangan</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Berminat Melancong ke Sabah?</h2>
+                            <p class="text-slate-600 text-sm sm:text-base mt-2">Hantarkan soalan atau maklumat lanjut mengenai perancangan percutian anda.</p>
+                        </div>
+
+                        <!-- Feedback Message Box -->
+                        <div id="form-alert" class="hidden mb-6 p-4 rounded-xl text-sm font-medium"></div>
+
+                        <form id="inquiry-form" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="nama" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Penuh *</label>
+                                    <input type="text" id="nama" required placeholder="Contoh: Ahmad Razali" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs font-semibold text-slate-700 uppercase mb-1">E-mel *</label>
+                                    <input type="email" id="email" required placeholder="nama@domain.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="destinasi-pilihan" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Destinasi Diminati</label>
+                                    <select id="destinasi-pilihan" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm bg-white">
+                                        <option value="Semua Tempat">-- Pilih Destinasi Utama --</option>
+                                        <option value="Gunung Kinabalu">Gunung Kinabalu</option>
+                                        <option value="Pulau Sipadan">Pulau Sipadan</option>
+                                        <option value="Desa Dairy Farm">Desa Dairy Farm Kundasang</option>
+                                        <option value="Sepilok Orangutan">Sepilok Orangutan Centre</option>
+                                        <option value="Mari Mari Cultural Village">Mari Mari Cultural Village</option>
+                                        <option value="Lain-lain">Lain-lain</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="tarikh" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Cadangan Tarikh Percutian</label>
+                                    <input type="date" id="tarikh" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="mesej" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Mesej / Pertanyaan *</label>
+                                <textarea id="mesej" rows="4" required placeholder="Tulis soalan atau maklumat pakej yang anda ingin tahu..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 rounded-xl shadow-md transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Hantar Pertanyaan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Interactive Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all relative animate-fadeIn">
+            <!-- Modal Close Button -->
+            <button id="modal-close-btn" class="absolute top-4 right-4 z-10 bg-slate-900/50 hover:bg-slate-900 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <!-- Modal Image Header -->
+            <div class="relative h-64 sm:h-72">
+                <img id="modal-image" src="" alt="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-6 right-6 text-white">
+                    <span id="modal-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-brand-500 text-white uppercase tracking-wider"></span>
+                    <h3 id="modal-title" class="font-heading text-2xl sm:text-3xl font-bold mt-2"></h3>
+                </div>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 sm:p-8 space-y-4">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Lokasi</h4>
+                    <p id="modal-location" class="text-slate-800 font-medium text-base flex items-center gap-1.5 mt-0.5">
+                        <i class="fa-solid fa-location-dot text-brand-600"></i> <span></span>
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Keterangan Lanjut</h4>
+                    <p id="modal-description" class="text-slate-600 text-sm leading-relaxed mt-1"></p>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 grid grid-cols-2 gap-4">
+                    <div>
+                        <span class="block text-xs text-slate-500">Masa Terbaik Melawat:</span>
+                        <span id="modal-best-time" class="text-sm font-semibold text-slate-800"></span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-slate-500">Aktiviti Utama:</span>
+                        <span id="modal-activities" class="text-sm font-semibold text-slate-800"></span>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3 border-t border-slate-100">
+                    <button id="modal-close-footer" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-medium text-sm hover:bg-slate-50 transition-colors">Tutup</button>
+                    <a id="modal-map-link" href="#" target="_blank" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-map"></i> Buka Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white text-base font-bold">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                        </div>
+                        <span class="font-heading font-extrabold text-lg text-white">SABAH<span class="text-brand-500">TRAVEL</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Inisiatif paparan destinasi menarik di Sabah untuk mempromosikan keindahan alam semulajadi dan kebudayaan tempatan.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Pautan Pantas</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#utamanya" class="hover:text-white transition-colors">Utama</a></li>
+                        <li><a href="#destinasi" class="hover:text-white transition-colors">Destinasi Popular</a></li>
+                        <li><a href="#tentang" class="hover:text-white transition-colors">Tentang Sabah</a></li>
+                        <li><a href="#hubungi" class="hover:text-white transition-colors">Pertanyaan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Dikembangkan Oleh</h4>
+                    <p class="text-sm text-slate-400">
+                        Dipaparkan oleh <strong class="text-white">Muhammad Suhail Akmal</strong>.<br>
+                        Diploma Pentadbiran Awam, UiTM Sabah.
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-xs text-slate-500">
+                &copy; <span id="current-year"></span> Sabah Tourism Showcase. Hak Cipta Terpelihara.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Tourism Data Array
+        const destinations = [
+            {
+                id: 'kinabalu',
+                name: 'Gunung Kinabalu',
+                category: 'gunung',
+                categoryLabel: 'Gunung',
+                location: 'Ranau / Kundasang',
+                image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop',
+                shortDesc: 'Puncak tertinggi di Malaysia dan Tapak Warisan Dunia UNESCO dengan pemandangan awan yang memukau.',
+                fullDesc: 'Gunung Kinabalu berketinggian 4,095 meter merupakan ikon utama negeri Sabah. Terkenal dengan biodiversiti flora dan fauna yang kaya serta trek pendakian yang mencabar tetapi amat berbaloi bagi pencinta alam sekitar.',
+                bestTime: 'Mac - September',
+                activities: 'Pendakian, Fotografi, Bird Watching',
+                mapUrl: 'https://maps.google.com/?q=Mount+Kinabalu'
+            },
+            {
+                id: 'sipadan',
+                name: 'Pulau Sipadan',
+                category: 'pulau',
+                categoryLabel: 'Pulau',
+                location: 'Semporna',
+                image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop',
+                shortDesc: 'Syurga menyelam bertaraf dunia dengan ekosistem marin dan penyu laut yang sangat kaya.',
+                fullDesc: 'Pulau Sipadan sering disenaraikan sebagai salah satu lokasi menyelam skuba terbaik di dunia. Dikelilingi terumbu karang yang indah, anda berpeluang berenang bersama kawanan penyu, barrakuda, dan jerung terumbu.',
+                bestTime: 'April - Disember',
+                activities: 'Menyelam Skuba, Snorkeling',
+                mapUrl: 'https://maps.google.com/?q=Sipadan+Island'
+            },
+            {
+                id: 'desa-dairy',
+                name: 'Desa Dairy Farm',
+                category: 'alam',
+                categoryLabel: 'Alam Semulajadi',
+                location: 'Kundasang, Ranau',
+                image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=800&auto=format&fit=crop',
+                shortDesc: 'Dikenali sebagai "New Zealand Sabah" dengan pemandangan padang ragut lembu di kaki gunung.',
+                fullDesc: 'Terletak di lereng Gunung Kinabalu, Desa Dairy Farm menawarkan suasana tanah tinggi yang sejuk. Pengunjung boleh menikmati susu segar, gelato tempatan, dan memberi makan anak lembu sambil menikmati pemandangan indah.',
+                bestTime: 'Sepanjang Tahun (Pagi)',
+                activities: 'Lawatan Ladang, Merasa Aiskrim, Fotografi',
+                mapUrl: 'https://maps.google.com/?q=Desa+Dairy+Farm+Kundasang'
+            },
+            {
+                id: 'sepilok',
+                name: 'Pusat Pemulihan Orangutan Sepilok',
+                category: 'alam',
+                categoryLabel: 'Alam Semulajadi',
+                location: 'Sandakan',
+                image: 'https://images.unsplash.com/photo-1540573137025-54005b7042f5?q=80&w=800&auto=format&fit=crop',
+                shortDesc: 'Pusat perlindungan dan pemulihan spesies Orangutan yang terancam di Hutan Simpan Kabili-Sepilok.',
+                fullDesc: 'Sepilok dibina untuk merawat dan memulihkan anak-anak Orangutan yang yatim atau cedera sebelum dilepaskan semula ke alam liar. Pengunjung boleh menyaksikan sesi pemberian makanan dari platform khas.',
+                bestTime: 'Sesi Makan (10.00 Pagi / 3.00 Petang)',
+                activities: 'Pemerhatian Orangutan, Jungle Walking',
+                mapUrl: 'https://maps.google.com/?q=Sepilok+Orangutan+Rehabilitation+Centre'
+            },
+            {
+                id: 'mari-mari',
+                name: 'Mari Mari Cultural Village',
+                category: 'kebudayaan',
+                categoryLabel: 'Kebudayaan',
+                location: 'Inanam, Kota Kinabalu',
+                image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop',
+                shortDesc: 'Kampung budaya interaktif yang memperkenalkan tradisi 5 suku kaum etnik utama di Sabah.',
+                fullDesc: 'Mari Mari Cultural Village membawa anda merasai kehidupan tradisi etnik Dusun, Rungus, Lundayeh, Bajau, dan Murut. Nikmati demonstrasi menyumpit, memasak buluh, dan tarian kebudayaan tradisional.',
+                bestTime: 'Sesi Pagi (10:00) atau Petang (14:00)',
+                activities: 'Tarian Tradisional, Sumpit, Merasa Makanan',
+                mapUrl: 'https://maps.google.com/?q=Mari+Mari+Cultural+Village'
+            },
+            {
+                id: 'manukan',
+                name: 'Pulau Manukan & TAR Marine Park',
+                category: 'pulau',
+                categoryLabel: 'Pulau',
+                location: 'Taman Negara Tunku Abdul Rahman, KK',
+                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+                shortDesc: 'Pulau percutian mudah diakses dengan pantai pasir putih dan air laut yang jernih dekat Bandaraya KK.',
+                fullDesc: 'Hanya 15 minit perjalanan bot dari jeti Kota Kinabalu, Pulau Manukan sesuai untuk percutian sekeluarga, sukan air, dan bersantai di tepi pantai.',
+                bestTime: 'Januari - Ogos',
+                activities: 'Parasailing, Snorkeling, Jet Ski',
+                mapUrl: 'https://maps.google.com/?q=Manukan+Island'
+            }
+        ];
+
+        // DOM Elements
+        const destinationsGrid = document.getElementById('destinations-grid');
+        const searchInput = document.getElementById('search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const noResults = document.getElementById('no-results');
+        const modal = document.getElementById('detail-modal');
+
+        let currentCategory = 'semua';
+        let searchQuery = '';
+
+        // Render Destinations Function
+        function renderDestinations() {
+            destinationsGrid.innerHTML = '';
+            
+            const filtered = destinations.filter(item => {
+                const matchesCategory = currentCategory === 'semua' || item.category === currentCategory;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      item.shortDesc.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-2xl overflow-hidden border border-slate-200 card-shadow flex flex-col justify-between';
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative h-52 overflow-hidden">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=${encodeURIComponent(item.name)}'">
+                                <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    ${item.categoryLabel}
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <div class="text-xs font-semibold text-brand-600 mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-location-dot"></i> ${item.location}
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-slate-900 mb-2">${item.name}</h3>
+                                <p class="text-slate-600 text-sm line-clamp-3 leading-relaxed mb-4">${item.shortDesc}</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0">
+                            <button onclick="openModal('${item.id}')" class="w-full py-2.5 px-4 rounded-xl border border-brand-600 text-brand-600 hover:bg-brand-600 hover:text-white font-medium text-sm transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-info"></i> Maklumat Lanjut
+                            </button>
+                        </div>
+                    `;
+                    destinationsGrid.appendChild(card);
+                });
+            }
+        }
+
+        // Filter Categories
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-600', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-slate-100', 'text-slate-700');
+                });
+                btn.classList.remove('bg-slate-100', 'text-slate-700');
+                btn.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
+
+                currentCategory = btn.dataset.category;
+                renderDestinations();
+            });
+        });
+
+        // Search Input Event
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            renderDestinations();
+        });
+
+        // Modal Functionality
+        function openModal(id) {
+            const item = destinations.find(d => d.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-image').src = item.image;
+            document.getElementById('modal-badge').innerText = item.categoryLabel;
+            document.getElementById('modal-title').innerText = item.name;
+            document.querySelector('#modal-location span').innerText = item.location;
+            document.getElementById('modal-description').innerText = item.fullDesc;
+            document.getElementById('modal-best-time').innerText = item.bestTime;
+            document.getElementById('modal-activities').innerText = item.activities;
+            document.getElementById('modal-map-link').href = item.mapUrl;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-close-footer').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Mobile Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Inquiry Form Handling
+        const inquiryForm = document.getElementById('inquiry-form');
+        const formAlert = document.getElementById('form-alert');
+
+        inquiryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+
+            // Display Success Message without alert()
+            formAlert.className = 'mb-6 p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
+            formAlert.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Terima kasih <strong>${nama}</strong>! Pertanyaan anda telah berjaya dihantar. Kami akan menghubungi anda melalui e-mel kelak.`;
+            formAlert.classList.remove('hidden');
+
+            inquiryForm.reset();
+            
+            // Scroll smoothly to alert
+            formAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Set Dynamic Year in Footer
+        document.getElementById('current-year').innerText = new Date().getFullYear();
+
+        // Initial Initialisation
+        renderDestinations();
+    </script>
+</body>
+</html>
