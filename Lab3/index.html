@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMJ Homestay | Tanjung Aru Sunset & Sea View KK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: { light: '#38BDF8', primary: '#0284C7', deep: '#1E40AF', navy: '#0F172A' },
+                        coastal: { sand: '#F8FAFC', soft: '#F1F5F9', card: '#FFFFFF' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        .hero-bg { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; }
+        .hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.2s ease-in-out; z-index:0; }
+        .hero-video.active { opacity:1; }
+        .hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(to bottom, rgba(15,23,42,0.55), rgba(15,23,42,0.8)); }
+        .playlist-item.active { border-color:#38BDF8; background:rgba(56,189,248,0.12); }
+        @media (prefers-reduced-motion: reduce) { .hero-video { display:none; } }
+        .ocean-badge { background: linear-gradient(135deg, #0284C7 0%, #1E40AF 100%); }
+        .ocean-gradient-text { background: linear-gradient(135deg, #38BDF8 0%, #0284C7 50%, #60A5FA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 20px 35px -5px rgba(2, 132, 199, 0.6); }
+        }
+        .animate-pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float { animation: floatSlow 4s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-coastal-sand text-slate-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#utama" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl ocean-badge flex items-center justify-center text-white font-serif text-xl font-bold shadow-md shadow-sky-500/20 group-hover:scale-110 transition-transform duration-300">S</div>
+                    <div>
+                        <span class="text-xl font-serif font-bold text-slate-900 block leading-tight">SMJ HOMESTAY</span>
+                        <span class="text-xs text-sky-600 font-medium tracking-widest uppercase">Tanjung Aru • Kota Kinabalu</span>
+                    </div>
+                </a>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#utama" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">Utama</a>
+                    <a href="#video" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">Video</a>
+                    <a href="#bilik" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">3 Bilik Tidur</a>
+                    <a href="#panduan" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">Panduan Lokasi</a>
+                    <a href="#harga" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">Harga & Pakej</a>
+                    <a href="#tempahan" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">Tempahan Direct</a>
+                    <a href="#hubungi" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50 transition-colors">Hubungi / FAQ</a>
+                </div>
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="https://wa.me/601121458938" target="_blank" class="px-4 py-2.5 rounded-xl border border-emerald-500 text-emerald-600 hover:bg-emerald-50 font-semibold text-sm flex items-center gap-2 hover:scale-105 transition-all">
+                        <i data-lucide="message-circle" class="w-4 h-4 text-emerald-500"></i> WhatsApp
+                    </a>
+                    <a href="#tempahan" class="px-5 py-2.5 rounded-xl ocean-badge text-white font-semibold text-sm shadow-lg shadow-sky-500/25 hover:scale-105 transition-all">Tempah Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO / UTAMA -->
+    <section id="utama" class="relative pt-20 min-h-screen flex items-center justify-center hero-bg text-white overflow-hidden">
+        <!-- Video latar (senyap, auto-main, bergilir) -->
+        <video class="hero-video active" muted playsinline preload="auto" poster="video/drone-bandar.jpg" data-src="video/hero-drone-bandar.mp4" aria-hidden="true"></video>
+        <video class="hero-video" muted playsinline preload="none" poster="video/sunset-pantai.jpg" data-src="video/hero-sunset-pantai.mp4" aria-hidden="true"></video>
+        <div class="hero-overlay"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div data-aos="fade-down" data-aos-delay="100" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sky-200 text-sm font-medium mb-6 animate-float">
+                <i data-lucide="sparkles" class="w-4 h-4 text-sky-400"></i> Estetika Pantai Tanjung Aru & Sea View Premium
+            </div>
+            <h1 data-aos="zoom-in" data-aos-delay="200" class="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight mb-6 leading-tight max-w-4xl mx-auto">
+                Nikmati <span class="ocean-gradient-text italic">Pemandangan Laut & Sunset</span> Tanjung Aru Dari Kediaman Anda.
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="300" class="text-lg sm:text-xl text-slate-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Unit 3 Bilik Mewah & Mesra Keluarga di Kota Kinabalu. Pemandangan laut tak terhalang, suasana estetik pantai, dan hanya 5 minit dari Lapangan Terbang BKI.
+            </p>
+            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-wrap justify-center gap-4">
+                <a href="#tempahan" class="px-8 py-4 rounded-2xl ocean-badge text-white font-bold text-base shadow-xl animate-pulse-glow hover:scale-105 transition-all">Tempah Direct Sekarang</a>
+                <a href="#bilik" class="px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold text-base hover:bg-white/20 hover:scale-105 transition-all">Lihat 3 Bilik Tidur</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: VIDEO SHOWCASE -->
+    <section id="video" class="py-24 bg-slate-900 text-white border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div data-aos="fade-down" class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-sky-300 font-bold text-xs uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full">Tonton Video</span>
+                <h2 class="text-4xl font-serif font-bold mt-3 mb-4">Rasai Suasana SMJ Homestay</h2>
+                <p class="text-slate-300 text-base">Daripada pantai Tanjung Aru hingga ruang tamu yang selesa — lihat sendiri sebelum anda tempah.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <div data-aos="fade-up" class="lg:col-span-2">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-black aspect-video">
+                        <video id="mainVideo" class="w-full h-full object-cover" controls playsinline preload="metadata" poster="video/logo-smj.jpg" src="video/logo-smj.mp4"></video>
+                    </div>
+                    <div class="mt-4 px-1">
+                        <h3 id="videoTitle" class="text-xl font-bold">Selamat Datang</h3>
+                        <p id="videoDesc" class="text-sm text-slate-300">Pengenalan SMJ Homestay</p>
+                    </div>
+                </div>
+                <div data-aos="fade-left" data-aos-delay="100" class="flex flex-col gap-3">
+                    <button type="button" data-video="video/logo-smj.mp4" data-poster="video/logo-smj.jpg" data-title="Selamat Datang" data-desc="Pengenalan SMJ Homestay" class="playlist-item active flex items-center gap-3 p-2 rounded-2xl border border-white/10 text-left hover:bg-white/10 transition-colors">
+                        <img src="video/logo-smj.jpg" alt="Selamat Datang" loading="lazy" class="w-24 h-14 rounded-xl object-cover shrink-0">
+                        <span class="min-w-0"><span class="block text-sm font-bold truncate">Selamat Datang</span><span class="block text-xs text-slate-300 truncate">Pengenalan SMJ Homestay</span></span>
+                    </button>
+                    <button type="button" data-video="video/pantai-tanjung-aru.mp4" data-poster="video/pantai-tanjung-aru.jpg" data-title="Pantai Tanjung Aru" data-desc="Pasir, ombak & pokok pantai" class="playlist-item flex items-center gap-3 p-2 rounded-2xl border border-white/10 text-left hover:bg-white/10 transition-colors">
+                        <img src="video/pantai-tanjung-aru.jpg" alt="Pantai Tanjung Aru" loading="lazy" class="w-24 h-14 rounded-xl object-cover shrink-0">
+                        <span class="min-w-0"><span class="block text-sm font-bold truncate">Pantai Tanjung Aru</span><span class="block text-xs text-slate-300 truncate">Pasir, ombak & pokok pantai</span></span>
+                    </button>
+                    <button type="button" data-video="video/drone-bandar.mp4" data-poster="video/drone-bandar.jpg" data-title="Kota Kinabalu" data-desc="Pemandangan udara pusat bandar" class="playlist-item flex items-center gap-3 p-2 rounded-2xl border border-white/10 text-left hover:bg-white/10 transition-colors">
+                        <img src="video/drone-bandar.jpg" alt="Kota Kinabalu" loading="lazy" class="w-24 h-14 rounded-xl object-cover shrink-0">
+                        <span class="min-w-0"><span class="block text-sm font-bold truncate">Kota Kinabalu</span><span class="block text-xs text-slate-300 truncate">Pemandangan udara pusat bandar</span></span>
+                    </button>
+                    <button type="button" data-video="video/ruang-tamu.mp4" data-poster="video/ruang-tamu.jpg" data-title="Ruang Tamu" data-desc="Ruang santai yang kemas & selesa" class="playlist-item flex items-center gap-3 p-2 rounded-2xl border border-white/10 text-left hover:bg-white/10 transition-colors">
+                        <img src="video/ruang-tamu.jpg" alt="Ruang Tamu" loading="lazy" class="w-24 h-14 rounded-xl object-cover shrink-0">
+                        <span class="min-w-0"><span class="block text-sm font-bold truncate">Ruang Tamu</span><span class="block text-xs text-slate-300 truncate">Ruang santai yang kemas & selesa</span></span>
+                    </button>
+                    <button type="button" data-video="video/sunset-pantai.mp4" data-poster="video/sunset-pantai.jpg" data-title="Sunset Sabah" data-desc="Suasana tenang pantai & jalan" class="playlist-item flex items-center gap-3 p-2 rounded-2xl border border-white/10 text-left hover:bg-white/10 transition-colors">
+                        <img src="video/sunset-pantai.jpg" alt="Sunset Sabah" loading="lazy" class="w-24 h-14 rounded-xl object-cover shrink-0">
+                        <span class="min-w-0"><span class="block text-sm font-bold truncate">Sunset Sabah</span><span class="block text-xs text-slate-300 truncate">Suasana tenang pantai & jalan</span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: BILIK TIDUR -->
+    <section id="bilik" class="py-28 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div data-aos="fade-down" class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sky-600 font-bold text-xs uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full">Keselesaan Ruang Luas</span>
+                <h2 class="text-4xl font-serif font-bold text-slate-900 mt-3 mb-4">Penginapan 3 Bilik & Kemudahan Premium</h2>
+                <p class="text-slate-600 text-base">Direka khusus untuk memberi ruang santai yang estetik, bersih, dan selesa untuk rombongan keluarga atau rakan-rakan.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Bilik 1: Master Room -->
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-coastal-sand rounded-3xl overflow-hidden border border-slate-100 p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4 bg-slate-200 group">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80" alt="Master Bedroom" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-slate-900/80 text-white text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">Master Room</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-900">Bilik Utama (Master Room)</h3>
+                    <p class="text-slate-600 text-sm mb-4">Katil King Saiz • Bilik Air En-Suite • Balkoni Pemandangan Laut & Sunset Tanjung Aru.</p>
+                    <ul class="space-y-2 text-xs text-slate-600 font-medium border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Aircond & Kipas Syiling</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Almari Baju & Meja Solek</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Pemanas Air (Water Heater)</li>
+                    </ul>
+                </div>
+                
+                <!-- Bilik 2: Twin Room -->
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-coastal-sand rounded-3xl overflow-hidden border border-slate-100 p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4 bg-sky-100 group">
+                        <img src="https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=800&q=80" alt="Twin Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-slate-900/80 text-white text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-md">Twin Room</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-900">Bilik Kedua (Twin Room)</h3>
+                    <p class="text-slate-600 text-sm mb-4">2 Katil Single • Pencahayaan Semula Jadi • Ruang Tambahan Extra Mattress.</p>
+                    <ul class="space-y-2 text-xs text-slate-600 font-medium border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Aircond & Plug Bersebelahan</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Cadar & Tuala Bersih Disediakan</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Mesra Kanak-kanak & Warga Emas</li>
+                    </ul>
+                </div>
+
+                <!-- Bilik 3: Queen Room -->
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-coastal-sand rounded-3xl overflow-hidden border border-slate-100 p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative h-48 rounded-2xl overflow-hidden mb-4 bg-amber-100 group">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80" alt="Queen Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-slate-900/80 text-white text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">Queen Room</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-900">Bilik Ketiga (Queen Room)</h3>
+                    <p class="text-slate-600 text-sm mb-4">Katil Queen Saiz • Hiasan Estetik Warna Alam • Pemandangan Bandar & Bukit.</p>
+                    <ul class="space-y-2 text-xs text-slate-600 font-medium border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Aircond Penuh</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Tilam Empuk Premium Quality</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Seterika & Papan Seterika</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: PANDUAN LOKASI -->
+    <section id="panduan" class="py-28 bg-coastal-soft border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div data-aos="fade-down" class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sky-600 font-bold text-xs uppercase tracking-widest bg-sky-100 px-3 py-1 rounded-full">Panduan Lokasi & Tarikan</span>
+                <h2 class="text-4xl font-serif font-bold text-slate-900 mt-3 mb-4">Meneroka Tanjung Aru & Kota Kinabalu</h2>
+                <p class="text-slate-600">Lokasi paling ideal di Kota Kinabalu — 3 minit ke pantai, 5 minit ke KKIA airport.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div data-aos="fade-right" data-aos-delay="100" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-4 text-slate-900 flex items-center gap-2"><i data-lucide="map-pin" class="text-sky-600"></i> Jarak Destinasi Utama</h3>
+                    <ul class="space-y-4 text-sm text-slate-600">
+                        <li class="flex items-center gap-3"><i data-lucide="sun" class="text-sky-600"></i> Pantai Tanjung Aru & Perdana Park (3 - 5 Minit)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="plane" class="text-sky-500"></i> Lapangan Terbang KKIA BKI (5 Minit)</li>
+                        <li class="flex items-center gap-3"><i data-lucide="ship" class="text-indigo-500"></i> Jesselton Point & Pasar Filipin (10 Minit)</li>
+                    </ul>
+                </div>
+                <div data-aos="fade-left" data-aos-delay="200" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-4 text-slate-900 flex items-center gap-2"><i data-lucide="utensils" class="text-sky-600"></i> Makanan & Aktiviti Wajib</h3>
+                    <ul class="space-y-4 text-sm text-slate-600">
+                        <li><strong>Jus Avokado Pantai Tanjung Aru:</strong> Minuman ikonik sambil layan sunset jam 6:00 PM.</li>
+                        <li><strong>Seafood Pasar Filipin:</strong> Ketam & udang bakar segar 10 minit dari rumah.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: HARGA & PAKEJ -->
+    <section id="harga" class="py-28 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div data-aos="fade-down" class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sky-600 font-bold text-xs uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full">Kadar Jelas & Transparan</span>
+                <h2 class="text-4xl font-serif font-bold text-slate-900 mt-3 mb-4">Harga & Pakej Tempahan Direct</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-coastal-sand p-8 rounded-3xl border border-slate-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-2">Hari Biasa (Weekday)</h3>
+                    <div class="text-3xl font-bold text-slate-900 mb-4">RM 280 <span class="text-sm font-normal text-slate-500">/ malam</span></div>
+                    <p class="text-xs text-slate-600 mb-6">Untuk unit keseluruhan 3 bilik (5-6 tetamu).</p>
+                    <a href="#tempahan" class="block w-full py-3 text-center border border-slate-300 rounded-xl font-semibold hover:bg-slate-50 transition-colors">Tempah Hari Biasa</a>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-slate-900 text-white p-8 rounded-3xl border-2 border-sky-500 relative shadow-2xl scale-105">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 ocean-badge text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">Paling Popular</span>
+                    <h3 class="text-xl font-bold mb-2">Pakej 3 Malam +</h3>
+                    <div class="text-3xl font-bold text-sky-400 mb-4">RM 250 <span class="text-sm font-normal text-slate-400">/ malam</span></div>
+                    <p class="text-xs text-emerald-400 mb-6 font-medium">Diskaun Khas 10% Direct Booking!</p>
+                    <a href="#tempahan" class="block w-full py-3 text-center ocean-badge text-white rounded-xl font-bold hover:opacity-95 hover:scale-105 transition-all">Pilih Pakej 3 Malam</a>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-coastal-sand p-8 rounded-3xl border border-slate-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-2">Weekend & Cuti</h3>
+                    <div class="text-3xl font-bold text-slate-900 mb-4">RM 330 <span class="text-sm font-normal text-slate-500">/ malam</span></div>
+                    <p class="text-xs text-slate-600 mb-6">Hujung minggu & Cuti Sekolah.</p>
+                    <a href="#tempahan" class="block w-full py-3 text-center border border-slate-300 rounded-xl font-semibold hover:bg-slate-50 transition-colors">Semak Tarikh Cuti</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: TEMPAHAN DIRECT -->
+    <section id="tempahan" class="py-28 bg-coastal-soft border-b border-slate-100">
+        <div data-aos="zoom-in" class="max-w-3xl mx-auto px-4 bg-white p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-100">
+            <h2 class="text-3xl font-serif font-bold text-center mb-6">Borang Tempahan Direct</h2>
+            <form onsubmit="submitWhatsApp(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Nama Penuh</label>
+                    <input type="text" id="name" required class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 transition-all">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Check-in</label>
+                        <input type="date" id="checkin" required class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Check-out</label>
+                        <input type="date" id="checkout" required class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 transition-all">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl ocean-badge text-white font-bold text-base shadow-lg shadow-sky-500/25 hover:scale-[1.01] transition-all">Hantar Tempahan ke WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- SECTION 6: HUBUNGI KAMI & FAQ -->
+    <section id="hubungi" class="py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 data-aos="fade-down" class="text-4xl font-serif font-bold text-slate-900 text-center mb-12">Hubungi Kami & Soalan Lazim (FAQ)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div data-aos="fade-right" data-aos-delay="100" class="bg-coastal-sand p-8 rounded-3xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4">Soalan Lazim (FAQ)</h3>
+                    <div class="space-y-4 text-sm text-slate-600">
+                        <p><strong>Berapa kapasiti max?</strong> Selesa 6 orang, max 8 orang (extra mattress).</p>
+                        <p><strong>Cara check-in?</strong> Self Check-in Smart Digital Lock (pin via WhatsApp).</p>
+                        <p><strong>Ada parking?</strong> Percuma 1 petak parking berbumbung dalam bangunan.</p>
+                    </div>
+                </div>
+                <div data-aos="fade-left" data-aos-delay="200" class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl">
+                    <h3 class="text-xl font-bold mb-4">Hubungi Kami</h3>
+                    <p class="text-sm text-slate-300 mb-2"><strong>Alamat:</strong> Tanjung Aru, 88100 Kota Kinabalu, Sabah</p>
+                    <p class="text-sm text-slate-300 mb-2"><strong>WhatsApp:</strong> +60 11-2145 8938</p>
+                    <p class="text-sm text-slate-300 mb-6"><strong>E-mel:</strong> smjhomestay.kk@gmail.com</p>
+                    <a href="https://wa.me/601121458938" target="_blank" class="inline-block px-6 py-3 bg-emerald-500 text-white font-bold rounded-xl hover:bg-emerald-600 hover:scale-105 transition-all">Chat WhatsApp Direct</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Audio Player for 'Hanya di Sabah - Dabra Sia' -->
+    <div data-aos="fade-up" data-aos-delay="500" class="fixed bottom-6 right-6 z-50 bg-slate-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl border border-sky-500/30 flex items-center gap-4 max-w-sm">
+        <div class="w-12 h-12 rounded-xl ocean-badge flex items-center justify-center shrink-0 animate-pulse">
+            <i data-lucide="music" class="w-6 h-6 text-white"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+            <p class="text-xs text-sky-400 font-semibold uppercase tracking-wider">Lagu Tema Sabah</p>
+            <h4 class="text-sm font-bold truncate">Hanya Di Sabah</h4>
+            <p class="text-xs text-slate-300 truncate">Dabra Sia</p>
+            <audio id="sabahAudio" class="hidden" loop>
+                <source src="hanya_di_sabah.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <button onclick="toggleAudio()" id="playBtn" class="w-10 h-10 rounded-full bg-sky-500 hover:bg-sky-400 flex items-center justify-center text-white transition-all shadow-md shadow-sky-500/40">
+            <i data-lucide="play" id="playIcon" class="w-5 h-5 ml-0.5"></i>
+        </button>
+    </div>
+
+    <script>
+        // ===== Video latar hero: main bergilir =====
+        (function () {
+            const vids = Array.from(document.querySelectorAll('.hero-video'));
+            if (!vids.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            let cur = 0;
+            const load = v => { if (!v.src) { v.src = v.dataset.src; v.load(); } };
+            const show = i => {
+                vids.forEach((v, k) => v.classList.toggle('active', k === i));
+                const v = vids[i]; load(v); v.currentTime = 0;
+                const p = v.play(); if (p) p.catch(() => {});
+                load(vids[(i + 1) % vids.length]);
+            };
+            vids.forEach((v, i) => v.addEventListener('ended', () => { cur = (i + 1) % vids.length; show(cur); }));
+            show(0);
+        })();
+
+        // ===== Galeri video =====
+        (function () {
+            const main = document.getElementById('mainVideo');
+            const items = document.querySelectorAll('.playlist-item');
+            const play = btn => {
+                items.forEach(i => i.classList.toggle('active', i === btn));
+                main.poster = btn.dataset.poster; main.src = btn.dataset.video;
+                document.getElementById('videoTitle').textContent = btn.dataset.title;
+                document.getElementById('videoDesc').textContent = btn.dataset.desc;
+                const p = main.play(); if (p) p.catch(() => {});
+            };
+            items.forEach(b => b.addEventListener('click', () => play(b)));
+            main.addEventListener('play', () => { const a = document.getElementById('sabahAudio'); if (a && !a.paused) toggleAudio(); });
+            main.addEventListener('ended', () => {
+                const list = Array.from(items); const i = list.findIndex(x => x.classList.contains('active'));
+                if (i < list.length - 1) play(list[i + 1]);
+            });
+        })();
+
+    </script>
+
+    <!-- AOS Script & Lucide Icons -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        lucide.createIcons();
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+
+
+        function submitWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            window.open(`https://wa.me/601121458938?text=Hai%20SMJ%20Homestay,%20saya%20${name}%20nak%20tempah%20tarikh%20${checkin}%20hingga%20${checkout}.`, '_blank');
+        }
+
+        function toggleAudio() {
+            const audio = document.getElementById('sabahAudio');
+            const playIcon = document.getElementById('playIcon');
+            if (audio.paused) {
+                audio.play();
+                playIcon.setAttribute('data-lucide', 'pause');
+            } else {
+                audio.pause();
+                playIcon.setAttribute('data-lucide', 'play');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
