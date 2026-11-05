@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ms" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Projek · Muhammad Suhail Akmal</title>
+<meta name="description" content="Profil projek makmal web: Jom Terokai Sabah dan Dashboard Demografi Malaysia — oleh Muhammad Suhail Akmal, Diploma Pentadbiran Awam, UiTM Sabah.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080c1a; --bg2:#0d1328; --card:rgba(255,255,255,.05); --line:rgba(255,255,255,.1);
+  --text:#eef1fb; --muted:#9aa4c4;
+  --teal:#2dd4bf; --gold:#fbbf24; --blue:#60a5fa; --violet:#a78bfa; --pink:#f472b6;
+  --grad:linear-gradient(120deg,#2dd4bf 0%,#60a5fa 45%,#a78bfa 100%);
+  --shadow:0 30px 80px -20px rgba(0,0,0,.6);
+}
+[data-theme="light"]{
+  --bg:#f6f7fc; --bg2:#ffffff; --card:rgba(255,255,255,.8); --line:rgba(15,23,42,.1);
+  --text:#0f172a; --muted:#56607e;
+  --teal:#0d9488; --gold:#d97706; --blue:#2563eb; --violet:#7c3aed; --pink:#db2777;
+  --grad:linear-gradient(120deg,#0d9488 0%,#2563eb 50%,#7c3aed 100%);
+  --shadow:0 30px 70px -25px rgba(30,41,90,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background .4s,color .4s}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Space Grotesk',Inter,sans-serif;line-height:1.1;letter-spacing:-.02em}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* background glow */
+.bg-orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;animation:float 18s ease-in-out infinite}
+.orb.a{width:520px;height:520px;background:var(--teal);top:-140px;left:-120px}
+.orb.b{width:560px;height:560px;background:var(--violet);top:30%;right:-200px;animation-delay:-6s}
+.orb.c{width:420px;height:420px;background:var(--blue);bottom:-120px;left:25%;animation-delay:-11s}
+[data-theme="light"] .orb{opacity:.22}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-50px) scale(1.12)}}
+.grid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 10%,transparent 70%);opacity:.5}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 70%,transparent);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:1.1rem}
+.logo i{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#06101f;font-style:normal;font-size:.95rem}
+.links{display:flex;gap:6px;align-items:center}
+.links a{padding:8px 14px;border-radius:99px;color:var(--muted);font-size:.92rem;font-weight:500;transition:.2s}
+.links a:hover{color:var(--text);background:var(--card)}
+.tbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;font-size:1.05rem;transition:.2s}
+.tbtn:hover{transform:rotate(18deg) scale(1.08)}
+@media(max-width:720px){.links a:not(.tbtn){display:none}}
+
+/* hero */
+.hero{padding:84px 0 70px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--line);background:var(--card);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--muted)}
+.badge b{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 #34d399;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1{font-size:clamp(2.6rem,6.4vw,5rem);margin:22px 0 20px;font-weight:700}
+.hero p.lead{font-size:1.15rem;color:var(--muted);max-width:520px}
+.type{color:var(--gold);font-weight:600;border-right:2px solid var(--gold);padding-right:3px;animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{border-color:transparent}}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:14px;font-weight:600;font-size:.98rem;transition:.25s;border:1px solid var(--line)}
+.btn.pri{background:var(--grad);color:#06101f;border:0;box-shadow:0 12px 34px -10px var(--blue)}
+.btn.pri:hover{transform:translateY(-3px);box-shadow:0 18px 40px -10px var(--blue)}
+.btn.sec{background:var(--card)}
+.btn.sec:hover{transform:translateY(-3px);border-color:var(--blue)}
+
+/* hero visual: stacked browsers */
+.stack{position:relative;height:440px;perspective:1200px}
+.win{position:absolute;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);box-shadow:var(--shadow);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.win .bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;background:color-mix(in srgb,var(--text) 6%,transparent);border-bottom:1px solid var(--line)}
+.win .bar i{width:9px;height:9px;border-radius:50%;background:#ff5f57}
+.win .bar i:nth-child(2){background:#febc2e}.win .bar i:nth-child(3){background:#28c840}
+.win .bar span{margin-left:10px;font-size:.68rem;color:var(--muted);background:var(--card);padding:2px 12px;border-radius:99px}
+.win.w1{width:78%;height:300px;left:0;top:0;transform:rotateY(8deg) rotateX(4deg);z-index:1}
+.win.w2{width:78%;height:300px;right:0;bottom:0;transform:rotateY(-8deg) rotateX(4deg);z-index:2}
+.stack:hover .w1{transform:rotateY(4deg) translate(-10px,-8px)}
+.stack:hover .w2{transform:rotateY(-4deg) translate(10px,8px)}
+.chip{position:absolute;z-index:3;background:var(--bg2);border:1px solid var(--line);padding:10px 14px;border-radius:14px;font-size:.8rem;font-weight:600;box-shadow:var(--shadow);display:flex;gap:8px;align-items:center;animation:bob 5s ease-in-out infinite}
+.chip.c1{top:46%;left:-14px}.chip.c2{top:6%;right:-6px;animation-delay:-2s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:50px}.stack{height:380px}}
+
+/* mock internals */
+.m-sabah{height:100%;background:linear-gradient(180deg,#0c4a6e 0%,#0ea5e9 55%,#fcd34d 100%);position:relative}
+.m-sabah svg{position:absolute;bottom:0;left:0;width:100%}
+.m-sabah .t{position:absolute;top:22px;left:20px;right:20px;color:#fff}
+.m-sabah .t b{display:block;font-family:'Space Grotesk';font-size:1.25rem}
+.m-sabah .t small{opacity:.85;font-size:.7rem}
+.m-sabah .pills{display:flex;gap:6px;margin-top:10px}
+.m-sabah .pills s{text-decoration:none;font-size:.6rem;background:rgba(255,255,255,.22);padding:3px 9px;border-radius:99px}
+.m-dash{height:100%;padding:14px;background:linear-gradient(160deg,#0f172a,#1e293b);color:#e2e8f0;display:flex;flex-direction:column;gap:10px}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.kp div{background:rgba(255,255,255,.07);border-radius:9px;padding:7px 8px;font-size:.55rem;color:#94a3b8}
+.kp div b{display:block;color:#fff;font-size:.85rem;font-family:'Space Grotesk'}
+.m-dash svg{flex:1;width:100%}
+.bars{display:flex;gap:5px;align-items:flex-end;height:46px}
+.bars i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(#a78bfa,#60a5fa);animation:grow 1.4s ease both}
+@keyframes grow{from{height:0!important}}
+
+/* marquee */
+.marq{border-block:1px solid var(--line);background:var(--card);overflow:hidden;padding:16px 0}
+.track{display:flex;gap:46px;width:max-content;animation:scroll 30s linear infinite;font-family:'Space Grotesk';font-weight:500;color:var(--muted);font-size:1.05rem}
+.track span{display:flex;align-items:center;gap:46px;white-space:nowrap}
+.track span::after{content:"✦";color:var(--gold)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:70px auto}
+.stat{padding:28px 22px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-align:center;transition:.3s}
+.stat:hover{transform:translateY(-6px);border-color:var(--teal)}
+.stat b{display:block;font-family:'Space Grotesk';font-size:clamp(2.2rem,4vw,3.2rem);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{color:var(--muted);font-size:.9rem}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* section heads */
+.eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:.18em;color:var(--teal);font-weight:700}
+.sec-h{margin:10px 0 14px;font-size:clamp(2rem,4.4vw,3.2rem)}
+.sec-p{color:var(--muted);max-width:620px}
+section{padding:40px 0}
+
+/* project cards */
+.proj{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center;margin-top:56px;padding:34px;border-radius:28px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
+.proj::before{content:"";position:absolute;inset:0;background:radial-gradient(600px circle at var(--mx,20%) var(--my,0%),var(--glow),transparent 45%);opacity:.18;transition:opacity .3s;pointer-events:none}
+.proj:hover::before{opacity:.38}
+.proj.p1{--glow:#2dd4bf}.proj.p2{--glow:#a78bfa}
+.proj.rev .shot{order:2}
+.shot .win{position:relative;height:340px;transform:rotate(-1.5deg);transition:.5s}
+.proj.rev .shot .win{transform:rotate(1.5deg)}
+.proj:hover .shot .win{transform:rotate(0) scale(1.03)}
+.num{font-family:'Space Grotesk';font-size:.9rem;font-weight:700;color:var(--gold);letter-spacing:.14em}
+.proj h3{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:8px 0 6px}
+.proj .tag{color:var(--muted);font-weight:500;margin-bottom:16px}
+.proj p.d{color:var(--muted);margin-bottom:18px}
+.feat{list-style:none;display:grid;gap:9px;margin-bottom:22px}
+.feat li{display:flex;gap:11px;font-size:.95rem}
+.feat li::before{content:"✓";flex:none;width:22px;height:22px;border-radius:7px;background:color-mix(in srgb,var(--glow) 25%,transparent);color:var(--glow);display:grid;place-items:center;font-size:.75rem;font-weight:800;margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tags span{padding:5px 12px;border-radius:99px;font-size:.78rem;font-weight:600;border:1px solid var(--line);background:color-mix(in srgb,var(--text) 5%,transparent)}
+.mini{display:flex;gap:26px;margin-bottom:24px;flex-wrap:wrap}
+.mini div b{display:block;font-family:'Space Grotesk';font-size:1.7rem;color:var(--glow)}
+.mini div small{color:var(--muted);font-size:.78rem}
+@media(max-width:900px){.proj{grid-template-columns:1fr;padding:22px}.proj.rev .shot{order:0}}
+
+/* tech */
+.tech{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.tc{padding:26px;border-radius:20px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.tc:hover{transform:translateY(-6px);border-color:var(--blue)}
+.tc .ic{font-size:1.8rem;margin-bottom:12px}
+.tc h4{font-family:'Space Grotesk';font-size:1.15rem;margin-bottom:6px}
+.tc p{color:var(--muted);font-size:.9rem}
+.tc em{font-style:normal;display:inline-block;margin-top:10px;font-size:.72rem;font-weight:700;color:var(--teal);letter-spacing:.06em}
+@media(max-width:860px){.tech{grid-template-columns:1fr 1fr}}@media(max-width:560px){.tech{grid-template-columns:1fr}}
+
+/* compare */
+.cmp{margin-top:40px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
+.cmp div.r{display:grid;grid-template-columns:1fr 1.3fr 1.3fr;border-top:1px solid var(--line)}
+.cmp div.r:first-child{border-top:0;background:color-mix(in srgb,var(--text) 6%,transparent);font-weight:700;font-family:'Space Grotesk'}
+.cmp div.r>*{padding:15px 20px;font-size:.93rem}
+.cmp div.r>:first-child{color:var(--muted);font-weight:600}
+@media(max-width:700px){.cmp div.r{grid-template-columns:1fr}.cmp div.r>*{padding:8px 18px}.cmp div.r>:first-child{padding-top:14px;color:var(--gold)}}
+
+/* about */
+.me{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;margin:40px 0 80px;padding:38px;border-radius:28px;border:1px solid var(--line);background:linear-gradient(135deg,color-mix(in srgb,var(--teal) 14%,transparent),color-mix(in srgb,var(--violet) 14%,transparent))}
+.av{width:120px;height:120px;border-radius:32px;background:var(--grad);display:grid;place-items:center;font-family:'Space Grotesk';font-size:2.8rem;font-weight:700;color:#06101f;transform:rotate(-6deg);box-shadow:var(--shadow)}
+.me h3{font-size:1.9rem;margin-bottom:4px}
+.me p{color:var(--muted)}
+.me .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.me .row span{padding:6px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:.84rem;font-weight:500}
+@media(max-width:640px){.me{grid-template-columns:1fr;text-align:center;justify-items:center}.me .row{justify-content:center}}
+
+footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:.88rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+@media print{.bg-orbs,.grid-bg,nav{display:none}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bg-orbs"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#atas" class="logo"><i>SA</i> Suhail<span class="grad-text">.dev</span></a>
+    <div class="links">
+      <a href="#projek">Projek</a>
+      <a href="#teknologi">Teknologi</a>
+      <a href="#banding">Perbandingan</a>
+      <a href="#pembangun">Pembangun</a>
+      <button class="tbtn" id="theme" aria-label="Tukar tema">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<main id="atas">
+<!-- HERO -->
+<header class="wrap hero">
+  <div class="rv">
+    <span class="badge"><b></b> Portfolio Makmal Web · UiTM Sabah</span>
+    <h1>Dua projek.<br><span class="grad-text">Satu perjalanan kod.</span></h1>
+    <p class="lead">Dari puncak <strong>Gunung Kinabalu</strong> hingga ke graf <strong>34 juta penduduk Malaysia</strong> — dua laman web interaktif yang menggabungkan reka bentuk, data dan cerita. Saya bina <span class="type" id="type"></span></p>
+    <div class="cta">
+      <a class="btn pri" href="#projek">Terokai Projek →</a>
+      <a class="btn sec" href="#teknologi">Lihat Teknologi</a>
+    </div>
+  </div>
+
+  <div class="stack rv" aria-hidden="true">
+    <div class="win w1">
+      <div class="bar"><i></i><i></i><i></i><span>jom-terokai-sabah</span></div>
+      <div class="m-sabah">
+        <div class="t"><b>Destinasi Menarik di Sabah</b><small>Negeri Di Bawah Bayu</small>
+          <div class="pills"><s>Gunung</s><s>Pulau</s><s>Budaya</s></div></div>
+        <svg viewBox="0 0 400 130" preserveAspectRatio="none" height="120"><circle cx="310" cy="38" r="22" fill="#fde68a" opacity=".9"/><path d="M0 130V82l70-26 52 34 78-70 82 76 48-26 70 44v16z" fill="#075985"/><path d="M0 130V104l90-24 72 28 92-44 146 40v26z" fill="#0c4a6e"/></svg>
+      </div>
+    </div>
+    <div class="win w2">
+      <div class="bar"><i></i><i></i><i></i><span>mydemographics</span></div>
+      <div class="m-dash">
+        <div class="kp"><div>Jumlah<b>34.39J</b></div><div>Lelaki<b>18.03J</b></div><div>Wanita<b>16.36J</b></div><div>Bukan Warga<b>3.37J</b></div></div>
+        <svg viewBox="0 0 300 90" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa" stop-opacity=".5"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/></linearGradient></defs><path d="M0 84C40 78 70 70 110 60S190 36 230 24 280 8 300 4V90H0z" fill="url(#g)"/><path d="M0 84C40 78 70 70 110 60S190 36 230 24 280 8 300 4" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/></svg>
+        <div class="bars"><i style="height:30%"></i><i style="height:48%"></i><i style="height:62%"></i><i style="height:80%"></i><i style="height:100%"></i><i style="height:84%"></i><i style="height:66%"></i><i style="height:50%"></i><i style="height:34%"></i><i style="height:20%"></i></div>
+      </div>
+    </div>
+    <div class="chip c1">🏔️ 4,095m Kinabalu</div>
+    <div class="chip c2">📈 1970 – 2026</div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marq" aria-hidden="true">
+  <div class="track">
+    <span>HTML5</span><span>Tailwind CSS</span><span>JavaScript ES6</span><span>Chart.js</span><span>Font Awesome</span><span>Google Fonts</span><span>Responsive Design</span><span>Dark Mode</span><span>Data Visualisation</span>
+    <span>HTML5</span><span>Tailwind CSS</span><span>JavaScript ES6</span><span>Chart.js</span><span>Font Awesome</span><span>Google Fonts</span><span>Responsive Design</span><span>Dark Mode</span><span>Data Visualisation</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="wrap stats">
+  <div class="stat rv"><b data-n="2">0</b><span>Projek Siap</span></div>
+  <div class="stat rv"><b data-n="6">0</b><span>Destinasi Dipaparkan</span></div>
+  <div class="stat rv"><b data-n="56" data-s="+">0</b><span>Tahun Data Penduduk</span></div>
+  <div class="stat rv"><b data-n="4">0</b><span>Carta Interaktif</span></div>
+</div>
+
+<!-- PROJEK -->
+<section id="projek">
+<div class="wrap">
+  <div class="rv"><span class="eyebrow">Koleksi Projek</span>
+  <h2 class="sec-h">Apa yang saya <span class="grad-text">bina</span></h2>
+  <p class="sec-p">Satu berkisar tentang pengalaman dan budaya, satu lagi tentang angka dan analisis. Dua rupa, dua cabaran, satu kemahiran yang sama.</p></div>
+
+  <!-- LAB 1 -->
+  <article class="proj p1 rv">
+    <div class="shot">
+      <div class="win">
+        <div class="bar"><i></i><i></i><i></i><span>lab1/index.html</span></div>
+        <div class="m-sabah" style="height:calc(100% - 30px)">
+          <div class="t"><b style="font-size:1.6rem">Jom Terokai Sabah</b><small>Daripada puncak Kinabalu hingga syurga menyelam Sipadan</small>
+            <div class="pills"><s>Semua</s><s>Gunung</s><s>Pulau &amp; Pantai</s><s>Kebudayaan</s><s>Alam</s></div></div>
+          <svg viewBox="0 0 400 150" preserveAspectRatio="none" height="150"><circle cx="320" cy="50" r="26" fill="#fde68a" opacity=".9"/><path d="M0 150V92l70-30 52 40 78-82 82 88 48-30 70 50v22z" fill="#075985"/><path d="M0 150V118l90-28 72 32 92-50 146 46v32z" fill="#0c4a6e"/></svg>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="num">PROJEK 01 · LAB 1</span>
+      <h3>Jom Terokai Sabah</h3>
+      <div class="tag">Laman web pelancongan "Negeri Di Bawah Bayu"</div>
+      <p class="d">Laman promosi pelancongan yang membawa pengunjung menjelajah enam destinasi ikonik Sabah — lengkap dengan carian pantas, tapisan kategori dan paparan butiran yang cantik.</p>
+      <div class="mini">
+        <div><b>6</b><small>Destinasi</small></div>
+        <div><b>4</b><small>Kategori tapisan</small></div>
+        <div><b>30+</b><small>Etnik diketengahkan</small></div>
+      </div>
+      <ul class="feat">
+        <li>Carian langsung &amp; tapisan: Gunung, Pulau, Kebudayaan, Alam</li>
+        <li>Modal butiran: lokasi, masa terbaik &amp; aktiviti utama + pautan Google Maps</li>
+        <li>Borang pertanyaan dengan pengesahan &amp; mesej maklum balas</li>
+        <li>Menu mudah alih dan susun atur sepenuhnya responsif</li>
+      </ul>
+      <div class="tags"><span>HTML5</span><span>Tailwind CSS</span><span>JavaScript</span><span>Font Awesome</span><span>Unsplash</span></div>
+      <a class="btn pri" href="lab1/index.html" target="_blank" rel="noopener">Buka Projek ↗</a>
+    </div>
+  </article>
+
+  <!-- LAB 2 -->
+  <article class="proj p2 rev rv">
+    <div class="shot">
+      <div class="win">
+        <div class="bar"><i></i><i></i><i></i><span>lab2/index.html</span></div>
+        <div class="m-dash" style="height:calc(100% - 30px);padding:18px">
+          <div class="kp"><div>Jumlah Penduduk<b style="font-size:1.1rem">34.39 Juta</b></div><div>Lelaki<b style="font-size:1.1rem">52.4%</b></div><div>Perempuan<b style="font-size:1.1rem">47.6%</b></div><div>Bukan Warga<b style="font-size:1.1rem">9.8%</b></div></div>
+          <svg viewBox="0 0 300 100" preserveAspectRatio="none"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a78bfa" stop-opacity=".55"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient></defs><path d="M0 94C40 88 70 78 110 66S190 40 230 26 280 10 300 5V100H0z" fill="url(#g2)"/><path d="M0 94C40 88 70 78 110 66S190 40 230 26 280 10 300 5" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/></svg>
+          <div class="bars"><i style="height:30%"></i><i style="height:48%"></i><i style="height:62%"></i><i style="height:80%"></i><i style="height:100%"></i><i style="height:84%"></i><i style="height:66%"></i><i style="height:50%"></i><i style="height:34%"></i><i style="height:20%"></i><i style="height:12%"></i></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="num">PROJEK 02 · LAB 2</span>
+      <h3>MYDemographics</h3>
+      <div class="tag">Dashboard demografi penduduk Malaysia, 1970 – 2026</div>
+      <p class="d">Dashboard analisis data rasmi DOSM yang menukar baris angka kepada cerita visual — daripada trend pertumbuhan 56 tahun hingga piramid umur dan jantina.</p>
+      <div class="mini">
+        <div><b>56</b><small>Tahun rekod</small></div>
+        <div><b>4</b><small>Carta Chart.js</small></div>
+        <div><b>4</b><small>Kad KPI dinamik</small></div>
+      </div>
+      <ul class="feat">
+        <li>Pemilih tahun yang mengemas kini KPI &amp; peratusan serta-merta</li>
+        <li>Carta garis, doughnut etnik, piramid umur &amp; trend etnik berbilang garis</li>
+        <li>Jadual boleh dicari &amp; berhalaman, dengan eksport CSV</li>
+        <li>Mod gelap/cerah dan paparan cetak untuk laporan</li>
+      </ul>
+      <div class="tags"><span>HTML5</span><span>Tailwind CSS</span><span>JavaScript</span><span>Chart.js</span><span>DOSM Dataset</span></div>
+      <a class="btn pri" href="lab2/index.html" target="_blank" rel="noopener">Buka Projek ↗</a>
+    </div>
+  </article>
+</div>
+</section>
+
+<!-- TEKNOLOGI -->
+<section id="teknologi">
+<div class="wrap">
+  <div class="rv"><span class="eyebrow">Kotak Alatan</span>
+  <h2 class="sec-h">Teknologi di <span class="grad-text">sebalik tabir</span></h2>
+  <p class="sec-p">Alat yang sama, digunakan dengan cara berbeza untuk menyelesaikan masalah berbeza.</p></div>
+  <div class="tech">
+    <div class="tc rv"><div class="ic">🧱</div><h4>HTML5 Semantik</h4><p>Struktur bersih dengan header, main, section dan footer untuk kebolehcapaian yang baik.</p><em>LAB 1 · LAB 2</em></div>
+    <div class="tc rv"><div class="ic">🎨</div><h4>Tailwind CSS</h4><p>Reka bentuk pantas dengan tema warna tersuai: palet "Sabah" dan mod gelap berasaskan kelas.</p><em>LAB 1 · LAB 2</em></div>
+    <div class="tc rv"><div class="ic">⚡</div><h4>JavaScript DOM</h4><p>Menapis data, menjana kad secara dinamik, mengurus modal, borang dan halaman jadual.</p><em>LAB 1 · LAB 2</em></div>
+    <div class="tc rv"><div class="ic">📊</div><h4>Chart.js</h4><p>Empat jenis carta termasuk gradien, doughnut dan piramid dua hala, yang turut menukar tema.</p><em>LAB 2</em></div>
+    <div class="tc rv"><div class="ic">✨</div><h4>Font Awesome &amp; Google Fonts</h4><p>Ikon dan tipografi Inter &amp; Montserrat untuk rupa yang kemas dan profesional.</p><em>LAB 1 · LAB 2</em></div>
+    <div class="tc rv"><div class="ic">📱</div><h4>Responsif</h4><p>Menu mudah alih, grid fleksibel dan gaya cetak supaya selesa di mana-mana skrin.</p><em>LAB 1 · LAB 2</em></div>
+  </div>
+</div>
+</section>
+
+<!-- PERBANDINGAN -->
+<section id="banding">
+<div class="wrap">
+  <div class="rv"><span class="eyebrow">Sekilas Pandang</span>
+  <h2 class="sec-h">Dua projek, <span class="grad-text">bersebelahan</span></h2></div>
+  <div class="cmp rv">
+    <div class="r"><span></span><span>🏔️ Jom Terokai Sabah</span><span>📈 MYDemographics</span></div>
+    <div class="r"><span>Tujuan</span><span>Mempromosi pelancongan Sabah</span><span>Menganalisis demografi Malaysia</span></div>
+    <div class="r"><span>Jenis</span><span>Laman web showcase</span><span>Dashboard data</span></div>
+    <div class="r"><span>Interaksi</span><span>Carian, tapisan kategori, modal, borang</span><span>Pemilih tahun, carian jadual, halaman, eksport CSV</span></div>
+    <div class="r"><span>Pustaka</span><span>Tailwind, Font Awesome</span><span>Tailwind, Chart.js, Font Awesome</span></div>
+    <div class="r"><span>Ciri istimewa</span><span>Modal butiran + Google Maps</span><span>Mod gelap &amp; paparan cetak</span></div>
+  </div>
+</div>
+</section>
+
+<!-- PEMBANGUN -->
+<section id="pembangun">
+<div class="wrap">
+  <div class="me rv">
+    <div class="av">SA</div>
+    <div>
+      <span class="eyebrow">Pembangun</span>
+      <h3>Muhammad Suhail Akmal</h3>
+      <p>Pelajar Diploma Pentadbiran Awam, UiTM Sabah — menggabungkan minat dalam pentadbiran, data dan pembangunan web untuk membina paparan digital yang berguna dan menarik.</p>
+      <div class="row"><span>🎓 UiTM Sabah</span><span>🏛️ Pentadbiran Awam</span><span>💻 Pembangunan Web</span></div>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap">&copy; <span id="yr"></span> Muhammad Suhail Akmal · Profil Projek Makmal Web · Dibina dengan ☕ &amp; kod</div></footer>
+
+<script>
+// tema
+const root=document.documentElement, tb=document.getElementById('theme');
+try{const s=localStorage.getItem('theme'); if(s) root.dataset.theme=s;}catch(e){}
+const sync=()=>tb.textContent=root.dataset.theme==='dark'?'🌙':'☀️'; sync();
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// kesan menaip
+const words=['laman pelancongan','dashboard data','antara muka interaktif','cerita melalui kod'];
+const el=document.getElementById('type'); let w=0,c=0,del=false;
+(function tick(){
+  const cur=words[w]; el.textContent=cur.slice(0,c);
+  if(!del&&c===cur.length){del=true;return setTimeout(tick,1500)}
+  if(del&&c===0){del=false;w=(w+1)%words.length}
+  c+=del?-1:1; setTimeout(tick,del?35:75);
+})();
+
+// reveal + counter
+const count=n=>{const t=+n.dataset.n,s=n.dataset.s||'';let v=0;const st=Math.max(1,Math.ceil(t/40));
+  const i=setInterval(()=>{v=Math.min(t,v+st);n.textContent=v+(v===t?s:'');if(v===t)clearInterval(i)},30)};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');
+  const n=e.target.querySelector('[data-n]'); if(n)count(n); io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((e,i)=>{e.style.transitionDelay=(i%4)*70+'ms';io.observe(e)});
+
+// cahaya mengikut tetikus pada kad projek
+document.querySelectorAll('.proj').forEach(p=>p.addEventListener('mousemove',e=>{
+  const r=p.getBoundingClientRect();p.style.setProperty('--mx',(e.clientX-r.left)+'px');p.style.setProperty('--my',(e.clientY-r.top)+'px')}));
+</script>
+</body>
+</html>
